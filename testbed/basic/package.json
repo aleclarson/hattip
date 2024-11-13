@@ -22,11 +22,11 @@
   },
   "main": "entry-gcf.js",
   "devDependencies": {
-    "@aws-sdk/client-cloudwatch-logs": "^3.682.0",
-    "@aws-sdk/client-iam": "^3.682.0",
-    "@aws-sdk/client-lambda": "^3.682.0",
+    "@aws-sdk/client-cloudwatch-logs": "^3.687.0",
+    "@aws-sdk/client-iam": "^3.687.0",
+    "@aws-sdk/client-lambda": "^3.689.0",
     "@fastly/compute-js-static-publish": "^6.1.1",
-    "@fastly/js-compute": "^3.26.0",
+    "@fastly/js-compute": "^3.27.2",
     "@hattip/adapter-aws-lambda": "workspace:*",
     "@hattip/adapter-bun": "workspace:*",
     "@hattip/adapter-cloudflare-workers": "workspace:*",
@@ -60,7 +60,7 @@
     "typescript": "^5.6.3",
     "vercel": "^37.14.0",
     "vitest": "^2.1.4",
-    "wrangler": "^3.84.1"
+    "wrangler": "^3.86.1"
   },
   "dependencies": {
     "@google-cloud/functions-framework": "^3.4.2",
