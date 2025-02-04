@@ -5,11 +5,11 @@ import type { CloudflareWorkersPlatformInfo } from ".";
 
 export type { CloudflareWorkersPlatformInfo };
 
-export default function cloudflareWorkersAdapter(
-	handler: HattipHandler<CloudflareWorkersPlatformInfo>,
-): ExportedHandlerFetchHandler {
+export default function cloudflareWorkersAdapter<Env = unknown>(
+	handler: HattipHandler<CloudflareWorkersPlatformInfo<Env>>,
+): ExportedHandlerFetchHandler<Env> {
 	return async function fetchHandler(request, env, ctx) {
-		const context: AdapterRequestContext<CloudflareWorkersPlatformInfo> = {
+		const context: AdapterRequestContext<CloudflareWorkersPlatformInfo<Env>> = {
 			request,
 			ip: request.headers.get("CF-Connecting-IP") || "127.0.0.1",
 			waitUntil: ctx.waitUntil.bind(ctx),
