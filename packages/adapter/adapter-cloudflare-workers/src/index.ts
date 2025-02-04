@@ -6,7 +6,7 @@ import manifestText from "__STATIC_CONTENT_MANIFEST";
 
 const manifest = JSON.parse(manifestText);
 
-export interface CloudflareWorkersPlatformInfo {
+export interface CloudflareWorkersPlatformInfo<Env = unknown> {
 	/** Platform name */
 	name: "cloudflare-workers";
 	/**
@@ -15,7 +15,7 @@ export interface CloudflareWorkersPlatformInfo {
 	 * @see https://developers.cloudflare.com/workers/platform/environment-variables
 	 * @see https://developers.cloudflare.com/workers/configuration/bindings
 	 */
-	env: unknown;
+	env: Env;
 	/**
 	 * Execution context
 	 * @see https://developers.cloudflare.com/workers/runtime-apis/fetch-event/#parameters
@@ -23,9 +23,9 @@ export interface CloudflareWorkersPlatformInfo {
 	context: ExecutionContext;
 }
 
-export default function cloudflareWorkersAdapter(
-	handler: HattipHandler<CloudflareWorkersPlatformInfo>,
-): ExportedHandlerFetchHandler {
+export default function cloudflareWorkersAdapter<Env = unknown>(
+	handler: HattipHandler<CloudflareWorkersPlatformInfo<Env>>,
+): ExportedHandlerFetchHandler<Env> {
 	return async function fetchHandler(request, env, ctx) {
 		if (request.method === "GET" || request.method === "HEAD") {
 			try {
@@ -47,7 +47,7 @@ export default function cloudflareWorkersAdapter(
 			}
 		}
 
-		const context: AdapterRequestContext<CloudflareWorkersPlatformInfo> = {
+		const context: AdapterRequestContext<CloudflareWorkersPlatformInfo<Env>> = {
 			request,
 			ip: request.headers.get("CF-Connecting-IP") || "127.0.0.1", // wrangler no longer sets this header
 			waitUntil: ctx.waitUntil.bind(ctx),
